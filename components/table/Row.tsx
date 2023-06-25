@@ -12,15 +12,18 @@ type Props = {
   onRowClick?: (row: Row) => void;
 };
 
-const RowBlock = block(({ row, columns, onRowClick }: Props) => {
-  return (
-    <TR clickable={!!onRowClick} onClick={() => (onRowClick ? onRowClick(row) : undefined)}>
-      {columns.map((column) => (
-        <Cell key={`td-${column.title}`} row={row} column={column} />
-      ))}
-    </TR>
-  );
-});
+const RowBlock = block(
+  ({ row, columns, onRowClick }: Props) => {
+    return (
+      <TR clickable={!!onRowClick} onClick={() => (onRowClick ? onRowClick(row) : undefined)}>
+        {columns.map((column) => (
+          <Cell key={`td-${column.title}`} row={row} column={column} />
+        ))}
+      </TR>
+    );
+  },
+  { ssr: false }
+);
 
 export default RowBlock;
 

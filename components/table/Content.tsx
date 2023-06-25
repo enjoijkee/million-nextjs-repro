@@ -51,7 +51,7 @@ const Content = ({
       </thead>
       {!folded && (
         <tbody>
-          <For each={data}>
+          <For each={data} ssr={false}>
             {(row, index) => (
               <RowBlock key={`tr-${index}`} row={row} columns={columns} onRowClick={onRowClick} />
             )}
