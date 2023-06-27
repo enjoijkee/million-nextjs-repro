@@ -1,5 +1,3 @@
-'use client';
-
 import { block } from 'million/react';
 import { Column, Row } from '../../types/table';
 import Cell from './Cell';

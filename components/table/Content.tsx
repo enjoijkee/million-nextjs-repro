@@ -1,7 +1,5 @@
-'use client';
-
-import { For } from 'million/react';
-import RowBlock from './Row';
+import { For, block } from 'million/react';
+import Cell from './Cell';
 import { Column, Row } from '../../types/table';
 import { styled } from '../../stitches.config';
 
@@ -16,6 +14,25 @@ interface Props {
   folded?: boolean;
   onFoldGroup?: (groupName: string) => void;
 }
+
+type RowProps = {
+  row: Row;
+  columns: Column[];
+  onRowClick?: (row: Row) => void;
+};
+
+const RowBlock = block(
+  ({ row, columns, onRowClick }: RowProps) => {
+    return (
+      <TR clickable={!!onRowClick} onClick={() => onRowClick && onRowClick(row)}>
+        {columns.map((column) => (
+          <Cell key={`td-${column.title}`} row={row} column={column} />
+        ))}
+      </TR>
+    );
+  },
+  { ssr: false }
+);
 
 const Content = ({
   data,
@@ -52,9 +69,7 @@ const Content = ({
       {!folded && (
         <tbody>
           <For each={data} ssr={false}>
-            {(row, index) => (
-              <RowBlock key={`tr-${index}`} row={row} columns={columns} onRowClick={onRowClick} />
-            )}
+            {(row: Row) => <RowBlock row={row} columns={columns} onRowClick={onRowClick} />}
           </For>
         </tbody>
       )}
@@ -178,6 +193,20 @@ export const TH = styled('th', {
     sortable: false,
     sorted: false,
     afterGroupName: false,
+  },
+});
+
+const TR = styled('tr', {
+  variants: {
+    clickable: {
+      true: {
+        cursor: 'pointer',
+        transition: '$default',
+        [`&:hover ${TD}`]: {
+          bgc: '$componentHoverBg',
+        },
+      },
+    },
   },
 });
 
