@@ -1,5 +1,3 @@
-'use client';
-
 import _ from 'lodash';
 import { TD } from './Content';
 import { Column, Row } from '../../types/table';

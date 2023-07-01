@@ -1,5 +1,3 @@
-'use client';
-
 import { Column } from '../../types/table';
 import { styled } from '../../stitches.config';
 

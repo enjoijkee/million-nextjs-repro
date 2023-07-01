@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import _ from 'lodash';
 import TableGrid from './TableGrid';
